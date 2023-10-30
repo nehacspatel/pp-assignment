@@ -1,0 +1,31 @@
+def sieve(n, isPrime):
+    isPrime[0] = isPrime[1] = False
+	
+    for i in range(2, n+1):
+        isPrime[i] = True
+
+    p = 2
+    while p * p <= n:
+        if isPrime[p] == True:
+            for i in range(p * 2, n + 1, p):
+                isPrime[i] = False
+        p += 1
+
+def is_super_prime(num, primes):
+    if num in primes:
+        return all(int(str(num)[i:]) in primes for i in range(len(str(num))))
+
+def superPrimes(n):
+    isPrime = [False] * (n + 1)
+    sieve(n, isPrime)
+    
+    primes = [i for i in range(n + 1) if isPrime[i]]
+
+    super_primes = [p for p in primes if is_super_prime(p, primes)]
+
+    print(f"Super-Primes less than or equal to {n} are:")
+    for prime in super_primes:
+        print(prime, end=" ")
+
+n = 241
+superPrimes(n)
